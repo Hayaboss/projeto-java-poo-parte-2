@@ -4,7 +4,7 @@ public class ConsultaNaoEncontradaException extends Exception {
         super(mensagem);
     }
 
-  public ConsultaNaoEncontradaException(String mensagem, Throwable causa) {
+    public ConsultaNaoEncontradaException(String mensagem, Throwable causa) {
         super(mensagem, causa);
     }
 }
