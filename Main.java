@@ -229,5 +229,59 @@ public class Main {
         System.out.println("Horário cadastrado com sucesso.");
     }
 
+    private static void agendarConsulta() throws PacienteNaoEncontradoException, PacienteInativoException,
+            ProfissionalNaoEncontradoException, HorarioIndisponivelException {
+        System.out.print("CPF do paciente: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Nome do profissional: ");
+        String nomeProfissional = scanner.nextLine();
+        System.out.print("Data (dd/mm/aaaa): ");
+        String data = scanner.nextLine();
+        System.out.print("Horário: ");
+        String horario = scanner.nextLine();
+
+        servico.agendarConsulta(cpf, nomeProfissional, data, horario);
+        System.out.println("Consulta agendada com sucesso.");
+    }
+
+    private static void cancelarConsulta() throws ConsultaNaoEncontradaException, OperacaoInvalidaException {
+        Consulta consulta = localizarConsulta();
+        System.out.print("Motivo do cancelamento: ");
+        String motivo = scanner.nextLine();
+        servico.cancelarConsulta(consulta, motivo);
+        System.out.println("Consulta cancelada com sucesso.");
+    }
+
+    private static void remarcarConsulta() throws ConsultaNaoEncontradaException, OperacaoInvalidaException,
+            HorarioIndisponivelException {
+        Consulta consulta = localizarConsulta();
+        System.out.print("Nova data: ");
+        String novaData = scanner.nextLine();
+        System.out.print("Novo horário: ");
+        String novoHorario = scanner.nextLine();
+        servico.remarcarConsulta(consulta, novaData, novoHorario);
+        System.out.println("Consulta remarcada com sucesso.");
+    }
+
+    private static void registrarAtendimento() throws ConsultaNaoEncontradaException, OperacaoInvalidaException {
+        Consulta consulta = localizarConsulta();
+        System.out.print("Observações clínicas: ");
+        String observacoes = scanner.nextLine();
+        System.out.print("Diagnóstico: ");
+        String diagnostico = scanner.nextLine();
+        servico.registrarAtendimento(consulta, "registrado via sistema", observacoes, diagnostico);
+        System.out.println("Atendimento registrado com sucesso.");
+    }
+
+    private static Consulta localizarConsulta() throws ConsultaNaoEncontradaException {
+        System.out.print("CPF do paciente: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Data da consulta: ");
+        String data = scanner.nextLine();
+        System.out.print("Horário da consulta: ");
+        String horario = scanner.nextLine();
+        return servico.buscarConsulta(cpf, data, horario);
+    }
+
     
 }
