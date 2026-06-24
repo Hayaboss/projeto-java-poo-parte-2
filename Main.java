@@ -216,5 +216,18 @@ public class Main {
         System.out.println("Profissional cadastrado com sucesso.");
     }
 
+    private static void cadastrarHorario() throws ProfissionalNaoEncontradoException {
+        System.out.print("Nome do profissional: ");
+        String nome = scanner.nextLine();
+        System.out.print("Dia da semana: ");
+        String dia = scanner.nextLine();
+        System.out.print("Turno (manhã/tarde): ");
+        String turno = scanner.nextLine();
+
+        Profissional profissional = servico.buscarProfissionalPorNome(nome);
+        profissional.adicionarHorario(dia, turno);
+        System.out.println("Horário cadastrado com sucesso.");
+    }
+
     
 }
