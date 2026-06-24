@@ -29,4 +29,23 @@ public class Main {
         System.out.println("Sistema finalizado. Até logo!");
         scanner.close();
     }
+    private static void seedConvenios() {
+        Convenio saudePlus = new Convenio("SaúdePlus", 40.0);
+        saudePlus.adicionarEspecialidadeCobertura("Fisioterapia");
+        saudePlus.adicionarEspecialidadeCobertura("Psicologia");
+        servico.cadastrarConvenio(saudePlus);
+
+        Convenio vidaMais = new Convenio("VidaMais", 30.0);
+        vidaMais.adicionarEspecialidadeCobertura("Nutrição");
+        vidaMais.adicionarEspecialidadeCobertura("Clínica Geral");
+        servico.cadastrarConvenio(vidaMais);
+
+        Convenio bemEstar = new Convenio("BemEstar", 50.0);
+        bemEstar.adicionarEspecialidadeCobertura("Fisioterapia");
+        bemEstar.adicionarEspecialidadeCobertura("Nutrição");
+        bemEstar.adicionarEspecialidadeCobertura("Psicologia");
+        bemEstar.adicionarEspecialidadeCobertura("Clínica Geral");
+        servico.cadastrarConvenio(bemEstar);
+    }
+ 
 }
