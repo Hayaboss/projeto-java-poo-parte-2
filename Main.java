@@ -47,5 +47,25 @@ public class Main {
         bemEstar.adicionarEspecialidadeCobertura("Clínica Geral");
         servico.cadastrarConvenio(bemEstar);
     }
+
+    private static void exibirMenu() {
+        System.out.println();
+        System.out.println("===== VidaPlena - Sistema de Gestão de Clínica =====");
+        System.out.println("1  - Cadastrar Paciente (Mínimo)");
+        System.out.println("2  - Cadastrar Paciente (Completo)");
+        System.out.println("3  - Cadastrar Profissional");
+        System.out.println("4  - Cadastrar Horário Disponível para Profissional");
+        System.out.println("5  - Agendar Consulta");
+        System.out.println("6  - Cancelar Consulta");
+        System.out.println("7  - Remarcar Consulta");
+        System.out.println("8  - Registrar Atendimento");
+        System.out.println("9  - Processar Pagamento");
+        System.out.println("10 - Relatório Unificado de Pessoas");
+        System.out.println("11 - Relatório de Pagamentos");
+        System.out.println("12 - Buscar Paciente por CPF");
+        System.out.println("13 - Desativar Paciente");
+        System.out.println("14 - Exportar Dados");
+        System.out.println("0  - Sair");
+    }
  
 }
