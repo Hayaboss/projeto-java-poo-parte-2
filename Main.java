@@ -123,4 +123,111 @@ public class Main {
         }
     }
  
+    private static void cadastrarPacienteMinimo() {
+        System.out.print("Nome do paciente: ");
+        String nome = scanner.nextLine();
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        servico.cadastrarPacienteMinimo(nome, cpf);
+        System.out.println("Paciente cadastrado com sucesso.");
+    }
+
+    private static void cadastrarPacienteCompleto() {
+        System.out.print("Nome do paciente: ");
+        String nome = scanner.nextLine();
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Telefone: ");
+        String telefone = scanner.nextLine();
+        System.out.print("Data de nascimento (dd/mm/aaaa): ");
+        String dataNascimento = scanner.nextLine();
+
+        int idade = lerInteiro("Idade: ");
+
+        Convenio convenio = null;
+        System.out.print("Possui convênio? (s/n): ");
+        String possuiConvenio = scanner.nextLine();
+        if (possuiConvenio.equalsIgnoreCase("s")) {
+            convenio = selecionarConvenio();
+        }
+
+        servico.cadastrarPacienteCompleto(nome, cpf, telefone, dataNascimento, idade, convenio);
+        System.out.println("Paciente cadastrado com sucesso.");
+    }
+
+    private static Convenio selecionarConvenio() {
+        List<Convenio> convenios = servico.getConvenios();
+        if (convenios.isEmpty()) {
+            System.out.println("Nenhum convênio cadastrado.");
+            return null;
+        }
+        System.out.println("Convênios disponíveis:");
+        for (int i = 0; i < convenios.size(); i++) {
+            System.out.println((i + 1) + " - " + convenios.get(i).getNome());
+        }
+        int escolha = lerInteiro("Escolha o convênio: ");
+        if (escolha < 1 || escolha > convenios.size()) {
+            System.out.println("Opção inválida, paciente cadastrado sem convênio.");
+            return null;
+        }
+        return convenios.get(escolha - 1);
+    }
+
+    private static void cadastrarProfissional() {
+        System.out.println("Especialidades: 1-Fisioterapeuta 2-Psicólogo 3-Nutricionista 4-Clínico Geral");
+        int especialidade = lerInteiro("Escolha a especialidade: ");
+
+        System.out.print("Nome do profissional: ");
+        String nome = scanner.nextLine();
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Telefone: ");
+        String telefone = scanner.nextLine();
+        System.out.print("Data de nascimento (dd/mm/aaaa): ");
+        String dataNascimento = scanner.nextLine();
+        System.out.print("Registro profissional: ");
+        String registro = scanner.nextLine();
+        double valorConsulta = lerDouble("Valor da consulta: R$ ");
+
+        Profissional profissional;
+        switch (especialidade) {
+            case 1:
+                int sessoes = lerInteiro("Quantidade de sessões previstas: ");
+                profissional = new Fisioterapeuta(nome, cpf, telefone, dataNascimento, registro, valorConsulta, sessoes);
+                break;
+            case 2:
+                System.out.print("Abordagem terapêutica: ");
+                String abordagem = scanner.nextLine();
+                profissional = new Psicologo(nome, cpf, telefone, dataNascimento, registro, valorConsulta, abordagem);
+                break;
+            case 3:
+                System.out.print("Plano alimentar padrão: ");
+                String plano = scanner.nextLine();
+                profissional = new Nutricionista(nome, cpf, telefone, dataNascimento, registro, valorConsulta, plano);
+                break;
+            case 4:
+                profissional = new ClinicoGeral(nome, cpf, telefone, dataNascimento, registro, valorConsulta);
+                break;
+            default:
+                System.out.println("Especialidade inválida.");
+                return;
+        }
+        servico.cadastrarProfissional(profissional);
+        System.out.println("Profissional cadastrado com sucesso.");
+    }
+
+    private static void cadastrarHorario() throws ProfissionalNaoEncontradoException {
+        System.out.print("Nome do profissional: ");
+        String nome = scanner.nextLine();
+        System.out.print("Dia da semana: ");
+        String dia = scanner.nextLine();
+        System.out.print("Turno (manhã/tarde): ");
+        String turno = scanner.nextLine();
+
+        Profissional profissional = servico.buscarProfissionalPorNome(nome);
+        profissional.adicionarHorario(dia, turno);
+        System.out.println("Horário cadastrado com sucesso.");
+    }
+
+    
 }
