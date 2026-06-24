@@ -68,5 +68,59 @@ public class Main {
         System.out.println("0  - Sair");
     }
 
+    private static void executarOpcao(int opcao) throws PacienteNaoEncontradoException,
+            ProfissionalNaoEncontradoException, PacienteInativoException, HorarioIndisponivelException,
+            OperacaoInvalidaException, ConsultaNaoEncontradaException, PagamentoInvalidoException,
+            ConvenioNaoCobreException {
+
+        switch (opcao) {
+            case 1:
+                cadastrarPacienteMinimo();
+                break;
+            case 2:
+                cadastrarPacienteCompleto();
+                break;
+            case 3:
+                cadastrarProfissional();
+                break;
+            case 4:
+                cadastrarHorario();
+                break;
+            case 5:
+                agendarConsulta();
+                break;
+            case 6:
+                cancelarConsulta();
+                break;
+            case 7:
+                remarcarConsulta();
+                break;
+            case 8:
+                registrarAtendimento();
+                break;
+            case 9:
+                processarPagamento();
+                break;
+            case 10:
+                servico.emitirRelatorioUnificadoDePessoas();
+                break;
+            case 11:
+                servico.emitirRelatorioDePagamentos();
+                break;
+            case 12:
+                buscarPaciente();
+                break;
+            case 13:
+                desativarPaciente();
+                break;
+            case 14:
+                exportarDados();
+                break;
+            case 0:
+                break;
+            default:
+                System.out.println("Opção inválida.");
+        }
+    }
  
 }
