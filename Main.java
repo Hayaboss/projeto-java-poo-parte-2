@@ -155,5 +155,23 @@ public class Main {
         System.out.println("Paciente cadastrado com sucesso.");
     }
 
+    private static Convenio selecionarConvenio() {
+        List<Convenio> convenios = servico.getConvenios();
+        if (convenios.isEmpty()) {
+            System.out.println("Nenhum convênio cadastrado.");
+            return null;
+        }
+        System.out.println("Convênios disponíveis:");
+        for (int i = 0; i < convenios.size(); i++) {
+            System.out.println((i + 1) + " - " + convenios.get(i).getNome());
+        }
+        int escolha = lerInteiro("Escolha o convênio: ");
+        if (escolha < 1 || escolha > convenios.size()) {
+            System.out.println("Opção inválida, paciente cadastrado sem convênio.");
+            return null;
+        }
+        return convenios.get(escolha - 1);
+    }
+
     
 }
