@@ -122,5 +122,13 @@ public class Main {
                 System.out.println("Opção inválida.");
         }
     }
- 
+    private static void cadastrarPacienteMinimo() {
+        System.out.print("Nome do paciente: ");
+        String nome = scanner.nextLine();
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        servico.cadastrarPacienteMinimo(nome, cpf);
+        System.out.println("Paciente cadastrado com sucesso.");
+    }
+    
 }
