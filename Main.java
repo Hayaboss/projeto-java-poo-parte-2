@@ -122,6 +122,7 @@ public class Main {
                 System.out.println("Opção inválida.");
         }
     }
+ 
     private static void cadastrarPacienteMinimo() {
         System.out.print("Nome do paciente: ");
         String nome = scanner.nextLine();
@@ -130,5 +131,29 @@ public class Main {
         servico.cadastrarPacienteMinimo(nome, cpf);
         System.out.println("Paciente cadastrado com sucesso.");
     }
+
+    private static void cadastrarPacienteCompleto() {
+        System.out.print("Nome do paciente: ");
+        String nome = scanner.nextLine();
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Telefone: ");
+        String telefone = scanner.nextLine();
+        System.out.print("Data de nascimento (dd/mm/aaaa): ");
+        String dataNascimento = scanner.nextLine();
+
+        int idade = lerInteiro("Idade: ");
+
+        Convenio convenio = null;
+        System.out.print("Possui convênio? (s/n): ");
+        String possuiConvenio = scanner.nextLine();
+        if (possuiConvenio.equalsIgnoreCase("s")) {
+            convenio = selecionarConvenio();
+        }
+
+        servico.cadastrarPacienteCompleto(nome, cpf, telefone, dataNascimento, idade, convenio);
+        System.out.println("Paciente cadastrado com sucesso.");
+    }
+
     
 }
