@@ -332,4 +332,39 @@ public class Main {
     }
 
    
+    private static void exportarDados() {
+        try {
+            List<String> exportacoes = servico.exportarTodosOsDados();
+            System.out.println("===== Exportação de Dados =====");
+            for (String linha : exportacoes) {
+                System.out.println(linha);
+            }
+        } finally {
+            System.out.println("--- Exportação finalizada ---");
+        }
+    }
+
+    private static int lerInteiro(String mensagem) {
+        while (true) {
+            System.out.print(mensagem);
+            String entrada = scanner.nextLine();
+            try {
+                return Integer.parseInt(entrada);
+            } catch (NumberFormatException e) {
+                System.out.println("Valor inválido. Por favor, digite um número inteiro.");
+            }
+        }
+    }
+
+    private static double lerDouble(String mensagem) {
+        while (true) {
+            System.out.print(mensagem);
+            String entrada = scanner.nextLine();
+            try {
+                return Double.parseDouble(entrada);
+            } catch (NumberFormatException e) {
+                System.out.println("Valor inválido. Por favor, digite um número (use ponto para decimais).");
+            }
+        }
+    }
 }
