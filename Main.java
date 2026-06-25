@@ -283,5 +283,88 @@ public class Main {
         return servico.buscarConsulta(cpf, data, horario);
     }
 
-    
+    private static void processarPagamento() throws PagamentoInvalidoException, ConvenioNaoCobreException,
+            PacienteNaoEncontradoException {
+        try {
+            System.out.println("Tipo de pagamento: 1-Dinheiro 2-Cartão 3-Convênio");
+            int tipo = lerInteiro("Escolha o tipo: ");
+            double valor = lerDouble("Valor da consulta: R$ ");
+            System.out.print("Data do pagamento: ");
+            String data = scanner.nextLine();
+
+            switch (tipo) {
+                case 1:
+                    servico.processarPagamentoDinheiro(valor, data);
+                    break;
+                case 2:
+                    int parcelas = lerInteiro("Número de parcelas (1 a 6): ");
+                    servico.processarPagamentoCartao(valor, data, parcelas);
+                    break;
+                case 3:
+                    System.out.print("CPF do paciente: ");
+                    String cpf = scanner.nextLine();
+                    System.out.print("Especialidade da consulta: ");
+                    String especialidade = scanner.nextLine();
+                    Paciente paciente = servico.buscarPacientePorCpf(cpf);
+                    servico.processarPagamentoConvenio(valor, data, paciente, especialidade);
+                    break;
+                default:
+                    throw new PagamentoInvalidoException("Tipo de pagamento não reconhecido.");
+            }
+            System.out.println("Pagamento processado com sucesso.");
+        } finally {
+            System.out.println("--- Operação de pagamento finalizada ---");
+        }
+    }
+
+    private static void buscarPaciente() throws PacienteNaoEncontradoException {
+        System.out.print("CPF do paciente: ");
+        String cpf = scanner.nextLine();
+        Paciente paciente = servico.buscarPacientePorCpf(cpf);
+        paciente.exibirResumo();
+    }
+
+    private static void desativarPaciente() throws PacienteNaoEncontradoException {
+        System.out.print("CPF do paciente: ");
+        String cpf = scanner.nextLine();
+        servico.desativarPaciente(cpf);
+        System.out.println("Paciente desativado com sucesso.");
+    }
+
+   
+    private static void exportarDados() {
+        try {
+            List<String> exportacoes = servico.exportarTodosOsDados();
+            System.out.println("===== Exportação de Dados =====");
+            for (String linha : exportacoes) {
+                System.out.println(linha);
+            }
+        } finally {
+            System.out.println("--- Exportação finalizada ---");
+        }
+    }
+
+    private static int lerInteiro(String mensagem) {
+        while (true) {
+            System.out.print(mensagem);
+            String entrada = scanner.nextLine();
+            try {
+                return Integer.parseInt(entrada);
+            } catch (NumberFormatException e) {
+                System.out.println("Valor inválido. Por favor, digite um número inteiro.");
+            }
+        }
+    }
+
+    private static double lerDouble(String mensagem) {
+        while (true) {
+            System.out.print(mensagem);
+            String entrada = scanner.nextLine();
+            try {
+                return Double.parseDouble(entrada);
+            } catch (NumberFormatException e) {
+                System.out.println("Valor inválido. Por favor, digite um número (use ponto para decimais).");
+            }
+        }
+    }
 }
